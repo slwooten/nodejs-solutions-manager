@@ -43,6 +43,11 @@ const changeDirectory = (chosenDirectory) => {
     fs.readdir(process.cwd(), (err, files) => {
         // pickDirectory(files);
         console.log(files);
+        if (files.length === 3) {
+            // go into acitivites folder
+            process.chdir(`${files[0]}`);
+            console.log('nested to: ', process.cwd());
+        } 
     });
 };
 
