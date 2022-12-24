@@ -43,6 +43,8 @@ const changeDirectory = (chosenDirectory) => {
         // pickDirectory(files);
         console.log(files);
         const activityDir = files[0];
+        const challengeDir = files[1];
+        const algorithmDir = files[2];
         if (files.length === 3) {
             // gets cwd - which is now the module the user selected //
             const currentDir = process.cwd();
@@ -50,10 +52,10 @@ const changeDirectory = (chosenDirectory) => {
             for (let i = 0; i < files.length; i++) {
                 fs.readdir(`${currentDir}/${files[i]}`, (err, files) => {
                     if (files.length > 5) {
-                        // functionality for going into each activity folder and deleting solved //
                         enterActivities(files, `${currentDir}/${activityDir}`);
-                    } else {
+                    } else if (files.includes('Main')) {
                         console.log('looped files: ', files);
+                        removeMain(`${currentDir}/${challengeDir}`);
                     }
                 });
             }
@@ -83,6 +85,17 @@ const removeSolution = (cwd) => {
         };
 
         console.log(`${cwd} is deleted!`);
+    });
+};
+
+const removeMain = (cwd) => {
+    console.log('is this right again? ', cwd);
+    fs.rmdir(`${cwd}/Main`, { recursive: true }, err => {
+        if (err) {
+            throw err;
+        };
+
+        console.log(`${cwd}/Main is deleted!`);
     });
 };
 
