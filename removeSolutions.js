@@ -78,7 +78,6 @@ const enterActivities = (folders, cwd) => {
 
 // USES fs.rmdir TO REMOVE THE SOLUTION DIRECTORY //
 const removeSolution = (cwd) => {
-    // console.log('is this right?', cwd);
     fs.rm(cwd, { recursive: true }, err => {
         if (err) {
             throw err;
@@ -90,7 +89,6 @@ const removeSolution = (cwd) => {
 
 // USES fs.rmdir TO REMOVE THE MAIN DIRECTORY //
 const removeMain = (cwd) => {
-    console.log('is this right again? ', cwd);
     fs.rm(`${cwd}/Main`, { recursive: true }, err => {
         if (err) {
             throw err;
