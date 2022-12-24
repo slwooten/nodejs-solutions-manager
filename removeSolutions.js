@@ -46,7 +46,7 @@ const changeDirectory = (chosenDirectory) => {
             const currentDir = process.cwd();
             for (let i = 0; i < files.length; i++) {
                 fs.readdir(`${currentDir}/${files[i]}`, (err, files) => {
-                    if (files.length > 5) {
+                    if (files.length > 8) {
                         enterActivities(files, `${currentDir}/${activityDir}`);
                     } else if (files.includes('Main')) {
                         removeMain(`${currentDir}/${challengeDir}`);
