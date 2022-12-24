@@ -26,10 +26,24 @@ const pickDirectory = (files) => {
         ])
         .then((answers) => {
             console.log('Chosen Directory: ', answers.chosenDirectory);
+            changeDirectory(answers.chosenDirectory);
         })
         .catch((error) => {
             console.log(error);
         })
+};
+
+// function to change working directory and log out the files in it
+const changeDirectory = (chosenDirectory) => {
+    const newDirectory = `./${chosenDirectory}`;
+
+    process.chdir(newDirectory);
+    console.log('Navigated to: ', process.cwd());
+
+    fs.readdir(process.cwd(), (err, files) => {
+        // pickDirectory(files);
+        console.log(files);
+    });
 };
 
 getDirectories();
