@@ -2,8 +2,7 @@ const process = require('process');
 const fs = require('fs');
 const inquirer = require('inquirer');
 
-// console.log(`Working in ${process.cwd()}`);
-
+// GETS ALL FOLDER FROM CURRENT WORKING DIRECTORY //
 const getDirectories = () => {
     const dPath = process.cwd();
 
@@ -13,8 +12,8 @@ const getDirectories = () => {
 
 };
 
+// USES INQUIRER TO PROMPT USER - USER SELECTS MODULE THEY'D LIKE TO USE //
 const pickDirectory = (files) => {
-    // console.log(files);
     inquirer
         .prompt([
             {
@@ -43,25 +42,42 @@ const changeDirectory = (chosenDirectory) => {
     fs.readdir(process.cwd(), (err, files) => {
         // pickDirectory(files);
         console.log(files);
+        const activityDir = files[0];
         if (files.length === 3) {
-            // go into acitivites folder
-            // process.chdir(`${files[0]}`);
+            // gets cwd - which is now the module the user selected //
             const currentDir = process.cwd();
+            // loops through to list out content of Activities, Challenge, and Algorithms //
             for (let i = 0; i < files.length; i++) {
-                // process.chdir(files[i]);
                 fs.readdir(`${currentDir}/${files[i]}`, (err, files) => {
                     if (files.length > 5) {
-                        console.log('its the acitivites');
+                        // functionality for going into each activity folder and deleting solved //
+                        enterActivities(files, `${currentDir}/${activityDir}`);
+                    } else {
                         console.log('looped files: ', files);
-                        // functionality for going into each activity folder and deleting solved
                     }
-                    console.log('looped files: ', files);
                 });
             }
-            // console.log('nested to: ', process.cwd());
-        } 
+        }
     });
 };
+
+const enterActivities = (folders, cwd) => {
+    console.log('activity folders: ', folders);
+    console.log('passed down cwd: ', cwd);
+    for (let i = 0; i < folders.length; i++) {
+        console.log('what were reading', `${cwd}/${folders[i]}`);
+        fs.readdir(`${cwd}/${folders[i]}`, (err, files) => {
+            console.log('individual activity files: ', files);
+            if (files.includes('Solved')) {
+                removeSolution(`${cwd}/${folders[i]}/Solved`);
+            };
+        });
+    };
+};
+
+const removeSolution = (cwd) => {
+    console.log('is this right?', cwd);
+}
 
 getDirectories();
 
