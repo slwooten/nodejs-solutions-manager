@@ -61,7 +61,6 @@ const changeDirectory = (chosenDirectory) => {
 
 // ENTER ACTIVITIES FOLDERS, CHECK IF EACH INCLUDES SOLVED FOLDER, IF SO, DELETE //
 const enterActivities = (folders, cwd) => {
-    console.log('folders', folders);
     for (let i = 0; i < folders.length; i++) {
         fs.readdir(`${cwd}/${folders[i]}`, (err, files) => {
             if (files === undefined) {
@@ -69,7 +68,9 @@ const enterActivities = (folders, cwd) => {
             } else {
                 if (files.includes('Solved')) {
                     removeSolution(`${cwd}/${folders[i]}/Solved`);
-                };
+                } else if (files.includes('Main')) {
+                    removeSolution(`${cwd}/${folders[i]}/Main`);
+                }
             }
         });
     };
