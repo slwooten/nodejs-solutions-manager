@@ -7,7 +7,7 @@ Command line application built for TA's working with edX Coding Bootcamps. Allow
 
 - Clone the repo
 - Copy the removeSolutions.js, package.json, and package-lock.json files and paste them into your class repo
-- Run ``` npm install ``` in the root directory
+- Run ``` npm install ``` in the root directory of your class repo
 - If you have a .gitignore already in the root directory, add:      
 ``` 
 /removeSolutions.js      
