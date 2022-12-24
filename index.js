@@ -45,8 +45,20 @@ const changeDirectory = (chosenDirectory) => {
         console.log(files);
         if (files.length === 3) {
             // go into acitivites folder
-            process.chdir(`${files[0]}`);
-            console.log('nested to: ', process.cwd());
+            // process.chdir(`${files[0]}`);
+            const currentDir = process.cwd();
+            for (let i = 0; i < files.length; i++) {
+                // process.chdir(files[i]);
+                fs.readdir(`${currentDir}/${files[i]}`, (err, files) => {
+                    if (files.length > 5) {
+                        console.log('its the acitivites');
+                        console.log('looped files: ', files);
+                        // functionality for going into each activity folder and deleting solved
+                    }
+                    console.log('looped files: ', files);
+                });
+            }
+            // console.log('nested to: ', process.cwd());
         } 
     });
 };
