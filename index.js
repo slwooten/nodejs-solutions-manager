@@ -56,6 +56,8 @@ const changeDirectory = (chosenDirectory) => {
                     } else if (files.includes('Main')) {
                         console.log('looped files: ', files);
                         removeMain(`${currentDir}/${challengeDir}`);
+                    } else {
+                        enterActivities(files, `${currentDir}/${algorithmDir}`);
                     }
                 });
             }
@@ -76,6 +78,10 @@ const enterActivities = (folders, cwd) => {
         });
     };
 };
+
+// const enterAlgorithms = (folders, cwd) => {
+//     console.log('algorithm folders: ', folders);
+// }
 
 const removeSolution = (cwd) => {
     console.log('is this right?', cwd);
@@ -100,22 +106,3 @@ const removeMain = (cwd) => {
 };
 
 getDirectories();
-
-// changeDirectory();
-
-// get list of folders (modules)
-
-// ask which module you need to remove solutions from
-
-// cd into that module
-
-// cd into activities folder
-    // cd into each activity, delete solved folder, cd up and to next activity
-
-// cd into challenge folder 
-    // delete Main folder if it's there
-
-// cd into algorithms
-    // cd into each algoritm, delete solved folder, cd up and to next algorithm
-
-
