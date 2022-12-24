@@ -76,7 +76,7 @@ const enterActivities = (folders, cwd) => {
     };
 };
 
-// USES fs.rmdir TO REMOVE THE SOLUTION DIRECTORY //
+// USES fs.rmdir TO REMOVE THE SOLUTION DIRECTORY or MAIN DIRECTORY //
 const removeSolution = (cwd) => {
     fs.rm(cwd, { recursive: true }, err => {
         if (err) {
@@ -87,7 +87,7 @@ const removeSolution = (cwd) => {
     });
 };
 
-// USES fs.rmdir TO REMOVE THE MAIN DIRECTORY //
+// USES fs.rmdir TO REMOVE THE MAIN DIRECTORY IN CHALLENGE FOLDER //
 const removeMain = (cwd) => {
     fs.rm(`${cwd}/Main`, { recursive: true }, err => {
         if (err) {
