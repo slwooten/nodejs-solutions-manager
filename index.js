@@ -77,7 +77,14 @@ const enterActivities = (folders, cwd) => {
 
 const removeSolution = (cwd) => {
     console.log('is this right?', cwd);
-}
+    fs.rmdir(cwd, { recursive: true }, err => {
+        if (err) {
+            throw err;
+        };
+
+        console.log(`${cwd} is deleted!`);
+    });
+};
 
 getDirectories();
 
