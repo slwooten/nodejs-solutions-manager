@@ -32,29 +32,23 @@ const pickDirectory = (files) => {
         })
 };
 
-// function to change working directory and log out the files in it
+// CHANGE WORKING DIRECTORY //
 const changeDirectory = (chosenDirectory) => {
     const newDirectory = `./${chosenDirectory}`;
 
     process.chdir(newDirectory);
-    console.log('Navigated to: ', process.cwd());
 
     fs.readdir(process.cwd(), (err, files) => {
-        // pickDirectory(files);
-        console.log(files);
         const activityDir = files[0];
         const challengeDir = files[1];
         const algorithmDir = files[2];
         if (files.length === 3) {
-            // gets cwd - which is now the module the user selected //
             const currentDir = process.cwd();
-            // loops through to list out content of Activities, Challenge, and Algorithms //
             for (let i = 0; i < files.length; i++) {
                 fs.readdir(`${currentDir}/${files[i]}`, (err, files) => {
                     if (files.length > 5) {
                         enterActivities(files, `${currentDir}/${activityDir}`);
                     } else if (files.includes('Main')) {
-                        console.log('looped files: ', files);
                         removeMain(`${currentDir}/${challengeDir}`);
                     } else {
                         enterActivities(files, `${currentDir}/${algorithmDir}`);
@@ -65,27 +59,26 @@ const changeDirectory = (chosenDirectory) => {
     });
 };
 
+// ENTER ACTIVITIES FOLDERS, CHECK IF EACH INCLUDES SOLVED FOLDER, IF SO, DELETE //
 const enterActivities = (folders, cwd) => {
-    console.log('activity folders: ', folders);
-    console.log('passed down cwd: ', cwd);
+    console.log('folders', folders);
     for (let i = 0; i < folders.length; i++) {
-        console.log('what were reading', `${cwd}/${folders[i]}`);
         fs.readdir(`${cwd}/${folders[i]}`, (err, files) => {
-            console.log('individual activity files: ', files);
-            if (files.includes('Solved')) {
-                removeSolution(`${cwd}/${folders[i]}/Solved`);
-            };
+            if (files === undefined) {
+                return;
+            } else {
+                if (files.includes('Solved')) {
+                    removeSolution(`${cwd}/${folders[i]}/Solved`);
+                };
+            }
         });
     };
 };
 
-// const enterAlgorithms = (folders, cwd) => {
-//     console.log('algorithm folders: ', folders);
-// }
-
+// USES fs.rmdir TO REMOVE THE SOLUTION DIRECTORY //
 const removeSolution = (cwd) => {
-    console.log('is this right?', cwd);
-    fs.rmdir(cwd, { recursive: true }, err => {
+    // console.log('is this right?', cwd);
+    fs.rm(cwd, { recursive: true }, err => {
         if (err) {
             throw err;
         };
@@ -94,9 +87,10 @@ const removeSolution = (cwd) => {
     });
 };
 
+// USES fs.rmdir TO REMOVE THE MAIN DIRECTORY //
 const removeMain = (cwd) => {
     console.log('is this right again? ', cwd);
-    fs.rmdir(`${cwd}/Main`, { recursive: true }, err => {
+    fs.rm(`${cwd}/Main`, { recursive: true }, err => {
         if (err) {
             throw err;
         };
