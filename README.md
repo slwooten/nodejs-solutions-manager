@@ -31,4 +31,3 @@ npm run remove
 
 - Select the Module that needs to have it's solutions removed
 - That's it, you should receive an output in the terminal of each directory that was deleted
-
